@@ -28,10 +28,10 @@ Install it via Rubygems or Bundler, require it, and pretend it's Sinatra:
 
 * Route mapping methods (`get`, `post`, ...)
 * Headers reading and setting
+* Basic params in URL (`/hello/:name`)
 
 ### Sinatra features that Rosendo plans to support
 
-* Basic params in URL (/hello/:name)
 * Params in query string
 * Form params in request body
 * Redirects

@@ -9,6 +9,10 @@ class Example < Rosendo::App
     'Hola wadus'
   end
   
+  get '/hello/:name/:surname' do
+    "#{params[:surname]}, #{params[:name]}"
+  end
+  
   get '/berlin' do
     'Hola Berlin'
   end
