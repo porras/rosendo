@@ -10,5 +10,9 @@ module Rosendo
     def headers(extra = {})
       @response.headers.merge!(extra)
     end
+    
+    def status(code)
+      @response.status = code
+    end
   end
 end

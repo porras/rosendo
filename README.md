@@ -29,6 +29,7 @@ Install it via Rubygems or Bundler, require it, and pretend it's Sinatra:
 * Route mapping methods (`get`, `post`, ...)
 * Headers reading and setting
 * Basic params in URL (`/hello/:name`)
+* HTTP status code
 
 ### Sinatra features that Rosendo plans to support
 
@@ -51,3 +52,5 @@ Install it via Rubygems or Bundler, require it, and pretend it's Sinatra:
 * Logging
 * *Classic* mode
 * Static files
+
+See `example.rb` for some supported things.

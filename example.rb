@@ -21,6 +21,11 @@ class Example < Rosendo::App
     headers 'X-Wadus' => 'Wadus!!'
     "Received headers: #{request.env.inspect}"
   end
+  
+  get '/status/:code' do
+    status params[:code].to_i
+    "#{params[:code]} Invented Status"
+  end
 end
 
 Example.run!(port: 2000)
