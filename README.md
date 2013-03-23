@@ -30,12 +30,12 @@ Install it via Rubygems or Bundler, require it, and pretend it's Sinatra:
 * Headers reading and setting
 * Basic params in URL (`/hello/:name`)
 * HTTP status code
+* Redirects
 
 ### Sinatra features that Rosendo plans to support
 
 * Params in query string
 * Form params in request body
-* Redirects
 * Templates
 
 ### Sinatra features that Rosendo doesn't plan to support (for the moment)

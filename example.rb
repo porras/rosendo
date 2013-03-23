@@ -26,6 +26,10 @@ class Example < Rosendo::App
     status params[:code].to_i
     "#{params[:code]} Invented Status"
   end
+  
+  get '/redirect' do
+    redirect '/'
+  end
 end
 
 Example.run!(port: 2000)

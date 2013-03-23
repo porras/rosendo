@@ -14,5 +14,11 @@ module Rosendo
     def status(code)
       @response.status = code
     end
+    
+    def redirect(url, code = 302, content = "")
+      status code
+      headers 'Location' => url
+      content
+    end
   end
 end
