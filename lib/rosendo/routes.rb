@@ -1,3 +1,5 @@
+require 'uri'
+
 module Rosendo
   class Routes
     def initialize
@@ -40,14 +42,25 @@ module Rosendo
         end
         
         def matches?(url)
-          url =~ @regexp
+          uri = URI.parse(url)
+          uri.path =~ @regexp
         end
         
         def params(url)
-          match = url.match(@regexp)
+          uri = URI.parse(url)
+          match = uri.path.match(@regexp)
           {}.tap do |params|
             @keys.each_with_index do |key, i|
               params[key] = match[i + 1]
+            end
+          end.merge(query_params(uri.query))
+        end
+        
+        def query_params(query)
+          {}.tap do |params|
+            query.split('&').each do |pair|
+              k, v = pair.split('=')
+              params[k.to_sym] = v
             end
           end
         end

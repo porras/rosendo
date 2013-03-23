@@ -30,6 +30,10 @@ class Example < Rosendo::App
   get '/redirect' do
     redirect '/'
   end
+  
+  get '/params' do
+    params.inspect
+  end
 end
 
 Example.run!(port: 2000)

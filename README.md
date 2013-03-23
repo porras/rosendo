@@ -32,10 +32,10 @@ Install it via Rubygems or Bundler, require it, and pretend it's Sinatra:
 * Basic params in URL (`/hello/:name`)
 * HTTP status code
 * Redirects
+* Params in query string
 
 ### Sinatra features that Rosendo plans to support
 
-* Params in query string
 * Form params in request body
 * Templates
 
