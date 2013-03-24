@@ -1,5 +1,3 @@
-require 'uri'
-
 module Rosendo
   class Routes
     def initialize
@@ -42,27 +40,18 @@ module Rosendo
         end
         
         def matches?(url)
-          uri = URI.parse(url)
-          uri.path =~ @regexp
+          url = URL.new(url)
+          url.path =~ @regexp
         end
         
         def params(url)
-          uri = URI.parse(url)
-          match = uri.path.match(@regexp)
+          url = URL.new(url)
+          match = url.path.match(@regexp)
           {}.tap do |params|
             @keys.each_with_index do |key, i|
               params[key] = match[i + 1]
             end
-          end.merge(query_params(uri.query))
-        end
-        
-        def query_params(query)
-          {}.tap do |params|
-            query.split('&').each do |pair|
-              k, v = pair.split('=')
-              params[k.to_sym] = v
-            end
-          end
+          end.merge(url.query_params)
         end
         
         def parse
@@ -72,6 +61,24 @@ module Rosendo
             '(\w+)'
           end
           [Regexp.new("^#{pattern}$"), keys]
+        end
+        
+        class URL
+          attr_reader :url, :path, :query
+          def initialize(url)
+            @url = url
+            @path, @query = url.split('?')
+          end
+          
+          def query_params
+            return {} unless query
+            {}.tap do |params|
+              query.split('&').each do |pair|
+                k, v = pair.split('=')
+                params[k.to_sym] = v
+              end
+            end
+          end
         end
       end
     end
