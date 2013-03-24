@@ -18,10 +18,10 @@ that's the only allowed exception. Still, no webrick, no erb, no nothing, and ob
 The rule doesn't apply to the tests though (I'm using minitest and Net::HTTP).
 
 The purpose of the game/exercise comes from a reflection about how much software we usually depend
-on when writing our applications (just run `bundle show` in your last Rails app if you don't believe
-me) and is double:
+on when writing our applications (just run `bundle show` in your latest Rails app if you don't
+believe me) and is double:
 
-1) Remember that the software we take for granted and like to whine about some times, it's actually
+1) Remember that the software we take for granted and like to whine about some times, is actually
 great software we should thank for every minute we're using it. Trying to live without it for some
 time is a great way to achieve this.
 
