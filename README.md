@@ -1,4 +1,4 @@
-# Rosendo
+# Rosendo [![Build Status](https://travis-ci.org/porras/rosendo.png)](https://travis-ci.org/porras/rosendo)
 
 Rosendo is a minimalistic and naive [Sinatra](http://sinatrarb.com) reimplementation, without any
 dependencies other than the ruby socket library. It's a learning exercise on the HTTP specs, web

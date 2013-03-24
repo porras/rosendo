@@ -12,6 +12,7 @@ module TestHelper
       Thread.current[:app] = Thread.new do
         Class.new(Rosendo::App, &block).run!(port: PORT, out: File.open(File::NULL, "w"))
       end
+      sleep (ENV['WAIT'] && ENV['WAIT'].to_f) || 0.001
     end
     
     def get(path, headers = {})
