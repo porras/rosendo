@@ -15,7 +15,7 @@ obvious reasons) from scratch, using just Ruby. I wanted to prevent myself from 
 the standard library, but probably making this without the socket library would be too much, so
 that's the only allowed exception. Still, no webrick, no erb, no nothing, and obviously no gems.
 
-The rule doesn't apply to the tests though (at least for the moment, I might change it later).
+The rule doesn't apply to the tests though (I'm using minitest and Net::HTTP).
 
 The purpose of the game/exercise comes from a reflection about how much software we usually depend
 on when writing our applications (just run `bundle show` in your last Rails app if you don't believe

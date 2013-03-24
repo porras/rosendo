@@ -18,7 +18,7 @@ module Rosendo
       @io.puts status_line
       @io.puts header_lines
       @io.puts
-      @io.puts body
+      @io.write body # write instead of puts for no extra newline
       @io.close
     end
 
@@ -27,7 +27,7 @@ module Rosendo
     end
 
     def header_lines
-      {'Content-Length' => body.size + 1}.merge(@headers).map { |k, v| "#{k}: #{v}" }.join("\n")
+      {'Content-Length' => body.size}.merge(@headers).map { |k, v| "#{k}: #{v}" }.join("\n")
     end
 
   end

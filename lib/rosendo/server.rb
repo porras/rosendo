@@ -2,23 +2,31 @@ require 'socket'
 
 module Rosendo
   class Server
-    attr_reader :port
+    class Stop < Exception; end
+    
+    attr_reader :port, :out
     def initialize(app, args = {})
       @app = app
       @port = args[:port] || '2000'
+      @out = args[:out] || STDOUT
     end
 
     def start
-      puts "== Rosendo is rocking the stage on #{port}"
-      puts ">> Listening on 0.0.0.0:#{port}, CTRL+C to stop"
+      out.puts "== Rosendo is rocking the stage on #{port}"
+      out.puts ">> Listening on 0.0.0.0:#{port}, CTRL+C to stop"
       
       loop do
-        client = server.accept
-        request = Request.new(client)
-        response = Response.new(client)
-        @app.process(request, response)
-        response.respond
-        puts "#{request.method} #{request.url} #{response.status} #{response.body.size}"
+        begin
+          client = server.accept
+          request = Request.new(client)
+          response = Response.new(client)
+          @app.process(request, response)
+          response.respond
+          out.puts "#{request.method} #{request.url} #{response.status} #{response.body.size}"
+        rescue Stop
+          server.close
+          out.puts "== Rosendo has left the building (everybody goes crazy)"
+        end
       end
     end
 
