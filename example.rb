@@ -34,6 +34,10 @@ class Example < Rosendo::App
   get '/params' do
     params.inspect
   end
+  
+  get '/exception' do
+    raise 'Catacrocker'
+  end
 end
 
 Example.run!(port: 2000)

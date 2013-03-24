@@ -13,7 +13,12 @@ module Rosendo
       
       def process(request, response)
         if route = routes.for(request)
-          response.body = route.call(request, response)
+          response.body = begin
+            route.call(request, response)
+          rescue Exception => e
+            response.status = 500
+            e.inspect + "\n\n" + e.backtrace.join("\n")
+          end
         else
           response.status = 404
           response.body = "404 Not Found"
