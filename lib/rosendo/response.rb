@@ -21,14 +21,15 @@ module Rosendo
       @io.write body # write instead of puts for no extra newline
       @io.close
     end
-
+    
+    private
+    
     def status_line
       "HTTP/1.1 #{status}"
     end
-
+    
     def header_lines
       {'Content-Length' => body.size}.merge(@headers).map { |k, v| "#{k}: #{v}" }.join("\n")
     end
-
   end
 end

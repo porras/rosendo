@@ -1,12 +1,6 @@
 module Rosendo
   class App
     class << self
-      %w{GET POST PUT DELETE}.each do |method|
-        define_method method.downcase do |*args, &block|
-          routes.add(method, *args, &block)
-        end
-      end
-      
       def run!(options = {})
         Server.new(self, options).start
       end
@@ -26,6 +20,12 @@ module Rosendo
       end
       
       private
+      
+      %w{GET POST PUT DELETE}.each do |method|
+        define_method method.downcase do |*args, &block|
+          routes.add(method, *args, &block)
+        end
+      end
       
       def routes
         @routes ||= Routes.new

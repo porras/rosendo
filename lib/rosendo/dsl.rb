@@ -1,5 +1,7 @@
 module Rosendo
   class DSL
+    private
+    
     attr_reader :request, :params
     def initialize(request, response, params)
       @request = request

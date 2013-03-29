@@ -17,7 +17,6 @@ module Rosendo
     end
     
     class Route
-      attr_reader :method, :path
       def initialize(method, path, &block)
         @method = method
         @path = Path.new(path)
@@ -25,12 +24,12 @@ module Rosendo
       end
       
       def matches?(request)
-        method == request.method &&
-        path.matches?(request.url)
+        @method == request.method &&
+        @path.matches?(request.url)
       end
     
       def call(request, response)
-        DSL.new(request, response, path.params(request.url)).instance_eval(&@block)
+        DSL.new(request, response, @path.params(request.url)).instance_eval(&@block)
       end
       
       class Path
@@ -54,6 +53,8 @@ module Rosendo
           end.merge(url.query_params)
         end
         
+        private
+        
         def parse
           keys = []
           pattern = @path.gsub(/:(\w+)/) do |match|
@@ -64,16 +65,16 @@ module Rosendo
         end
         
         class URL
-          attr_reader :url, :path, :query
+          attr_reader :path
           def initialize(url)
             @url = url
             @path, @query = url.split('?')
           end
           
           def query_params
-            return {} unless query
+            return {} unless @query
             {}.tap do |params|
-              query.split('&').each do |pair|
+              @query.split('&').each do |pair|
                 k, v = pair.split('=')
                 params[k.to_sym] = v
               end
