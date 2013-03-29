@@ -12,21 +12,23 @@ module Rosendo
     end
 
     def start
-      out.puts "== Rosendo is rocking the stage on #{port}"
+      out.puts "\n== Rosendo is rocking the stage on #{port}"
       out.puts ">> Listening on 0.0.0.0:#{port}, CTRL+C to stop"
       
-      loop do
-        begin
-          client = server.accept
-          request = Request.new(client)
-          response = Response.new(client)
-          @app.process(request, response)
-          response.respond
-          out.puts "#{request.method} #{request.url} #{response.status} #{response.body.size}"
-        rescue Stop
-          server.close
-          out.puts "== Rosendo has left the building (everybody goes crazy)"
+      begin
+        while client = server.accept
+          Thread.new(client) do |client|
+            request = Request.new(client)
+            response = Response.new(client)
+            @app.process(request, response)
+            response.respond
+            out.puts "#{request.method} #{request.url} #{response.status} #{response.body.size}"
+          end
         end
+      rescue Stop, Interrupt
+        server.close
+        out.puts "\n>> Closing 0.0.0.0:#{port}..."
+        out.puts "== Rosendo has left the building (everybody goes crazy)"
       end
     end
 
